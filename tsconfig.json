@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // 编译后的 JavaScript 版本，ES2020 支持现代浏览器特性
+    "useDefineForClassFields": true, // 使用标准的类字段定义语法，符合 ES 规范
+    "lib": ["ES2020", "DOM", "DOM.Iterable"], // 包含的类型库，ES2020 语法 + DOM API + DOM 迭代器
+    "module": "ESNext", // 模块系统，使用最新的 ES 模块语法
+    "skipLibCheck": true, // 跳过对 .d.ts 文件的类型检查，提高编译速度
+
+    /* Bundler mode 打包工具模式 */
+    "moduleResolution": "bundler", // 模块解析策略，适用于现代打包工具如 Vite
+    "allowImportingTsExtensions": true, // 允许导入 .ts/.tsx 文件时包含扩展名
+    "resolveJsonModule": true, // 允许导入 JSON 文件作为模块
+    "isolatedModules": true, // 每个文件作为独立模块处理，提高编译性能
+    "noEmit": true, // 不生成编译后的文件，只进行类型检查
+    "jsx": "react-jsx", // JSX 编译方式，使用 React 17+ 的新 JSX 转换
+
+    /* Linting 代码检查 */
+    "strict": true, // 启用所有严格类型检查选项
+    "noUnusedLocals": true, // 检查未使用的局部变量
+    "noUnusedParameters": true, // 检查未使用的函数参数
+    "noFallthroughCasesInSwitch": true // 检查 switch 语句中的 fallthrough 情况
+  },
+  "include": ["src"] // 包含 src 目录下的所有 TypeScript 文件
+}

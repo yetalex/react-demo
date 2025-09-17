@@ -1,19 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react'
 // import './App.css'
 
-function ProductCategoryRow({ category }) {
+// 定义产品数据类型
+interface Product {
+  category: string;
+  price: string;
+  stocked: boolean;
+  name: string;
+}
+
+// 定义组件 Props 类型
+interface ProductCategoryRowProps {
+  category: string;
+}
+
+interface ProductRowProps {
+  product: Product;
+}
+
+interface ProductTableProps {
+  products: Product[];
+}
+
+interface FilterableProductTableProps {
+  products: Product[];
+}
+
+function ProductCategoryRow({ category }: ProductCategoryRowProps) {
   return (
     <tr>
-      <th colSpan="2">
+      <th colSpan={2}>
         {category}
       </th>
     </tr>
   )
 }
 
-function ProductRow({ product }) {
+function ProductRow({ product }: ProductRowProps) {
   const name = product.stocked ? product.name : <span style={{ color: 'red' }}>{product.name}</span>
   return (
     <tr>
@@ -23,9 +46,9 @@ function ProductRow({ product }) {
   )
 }
 
-function ProductTable({ products }) {
-  const rows = []
-  let lastCatetory = null
+function ProductTable({ products }: ProductTableProps) {
+  const rows: React.ReactElement[] = []
+  let lastCatetory: string | null = null
 
   products.forEach((product) => {
     if (product.category !== lastCatetory) {
@@ -61,7 +84,7 @@ function SearchBar() {
   )
 }
 
-function FilterableProductTable({ products }) {
+function FilterableProductTable({ products }: FilterableProductTableProps) {
   return (
     <div>
       <SearchBar />
@@ -70,7 +93,7 @@ function FilterableProductTable({ products }) {
   );
 }
 
-const PRODUCTS = [
+const PRODUCTS: Product[] = [
   { category: 'Fruits', price: '$1', stocked: true, name: 'Apple' },
   { category: 'Fruits', price: '$1', stocked: true, name: 'Dragonfruit' },
   { category: 'Fruits', price: '$2', stocked: false, name: 'Passionfruit' },
@@ -79,7 +102,7 @@ const PRODUCTS = [
   { category: 'Vegetables', price: '$1', stocked: true, name: 'Peas' },
 ]
 
-function App() {
+function App(): React.ReactElement {
   return <FilterableProductTable products={PRODUCTS} />
 }
 
