@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import './App.css'
 
 // 定义产品数据类型
@@ -18,8 +18,20 @@ interface ProductRowProps {
   product: Product;
 }
 
+// 部分属性可选，如：type userLogin = PartialBy<User, 'password'>
+// type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
 interface ProductTableProps {
   products: Product[];
+  filterText: string;
+  inStockOnly: boolean;
+}
+
+interface SearchBarProps {
+  filterText: string;
+  inStockOnly: boolean;
+  onFilterTextChange: (filterText: string) => void;
+  onInStockOnlyChange: (inStockOnly: boolean) => void;
 }
 
 interface FilterableProductTableProps {
@@ -46,11 +58,21 @@ function ProductRow({ product }: ProductRowProps) {
   )
 }
 
-function ProductTable({ products }: ProductTableProps) {
+function ProductTable({ products, filterText, inStockOnly }: ProductTableProps) {
   const rows: React.ReactElement[] = []
   let lastCatetory: string | null = null
 
   products.forEach((product) => {
+    if (
+      product.name.toLowerCase().indexOf(
+        filterText.toLowerCase()
+      ) === -1) {
+      return
+    }
+    if (inStockOnly && !product.stocked) {
+      return
+    }
+
     if (product.category !== lastCatetory) {
       rows.push(<ProductCategoryRow category={product.category} key={product.category} />)
     }
@@ -71,12 +93,12 @@ function ProductTable({ products }: ProductTableProps) {
   )
 }
 
-function SearchBar() {
+function SearchBar({ filterText, inStockOnly, onFilterTextChange, onInStockOnlyChange }: SearchBarProps) {
   return (
     <form>
-      <input type="text" placeholder="Search..." />
+      <input type="text" value={filterText} placeholder="Search..." onChange={(e) => onFilterTextChange(e.target.value)} />
       <label>
-        <input type="checkbox" />
+        <input type="checkbox" checked={inStockOnly} onChange={(e) => onInStockOnlyChange(e.target.checked)} />
         {' '}
         Only show products in stock
       </label>
@@ -85,10 +107,21 @@ function SearchBar() {
 }
 
 function FilterableProductTable({ products }: FilterableProductTableProps) {
+  const [filterText, setFilterText] = useState('')
+  const [inStockOnly, setInStockOnly] = useState(false)
   return (
     <div>
-      <SearchBar />
-      <ProductTable products={products} />
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        onFilterTextChange={setFilterText}
+        onInStockOnlyChange={setInStockOnly}
+      />
+      <ProductTable 
+        products={products}
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+      />
     </div>
   );
 }
