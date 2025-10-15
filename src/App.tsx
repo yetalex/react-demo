@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { EnergyChart, SvgChart} from './3d'
+import SvgPathDemo from './3d/SvgPathDemo'
 // import './App.css'
 
 // 定义产品数据类型
@@ -136,7 +138,74 @@ const PRODUCTS: Product[] = [
 ]
 
 function App(): React.ReactElement {
-  return <FilterableProductTable products={PRODUCTS} />
+  const [currentView, setCurrentView] = useState<'products' | 'energy' | 'svg-demo'>('svg-demo');
+
+  return (
+    <div>
+      {/* 导航栏 */}
+      <nav style={{
+        padding: '1rem',
+        backgroundColor: '#1e293b',
+        borderBottom: '1px solid #334155'
+      }}>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <button
+            onClick={() => setCurrentView('svg-demo')}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: currentView === 'svg-demo' ? '#3b82f6' : 'transparent',
+              color: 'white',
+              border: '1px solid #3b82f6',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            SVG路径演示
+          </button>
+          <button
+            onClick={() => setCurrentView('energy')}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: currentView === 'energy' ? '#3b82f6' : 'transparent',
+              color: 'white',
+              border: '1px solid #3b82f6',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            3D 能源图表
+          </button>
+          <button
+            onClick={() => setCurrentView('products')}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: currentView === 'products' ? '#3b82f6' : 'transparent',
+              color: 'white',
+              border: '1px solid #3b82f6',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            产品表格
+          </button>
+        </div>
+      </nav>
+
+      {/* 内容区域 */}
+      {currentView === 'svg-demo' ? (
+        <SvgPathDemo />
+      ) : currentView === 'energy' ? (
+        <div style={{height: '100vh'}}>
+          <EnergyChart />
+          <SvgChart />
+        </div>
+      ) : (
+        <div style={{ padding: '1rem' }}>
+          <FilterableProductTable products={PRODUCTS} />
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default App
