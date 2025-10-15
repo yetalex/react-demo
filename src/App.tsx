@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { EnergyChart, SvgChart} from './3d'
 import SvgPathDemo from './3d/SvgPathDemo'
+import { Link } from 'react-router'
 // import './App.css'
 
 // 定义产品数据类型
@@ -188,6 +189,16 @@ function App(): React.ReactElement {
           >
             产品表格
           </button>
+          <Link to="/pages/echarts/bar" style={{
+            padding: '0.5rem 1rem',
+            color: 'white',
+            textDecoration: 'none',
+            border: '1px solid #3b82f6',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}>
+            Concerts
+          </Link>
         </div>
       </nav>
 
