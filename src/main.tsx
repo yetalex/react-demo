@@ -6,8 +6,8 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { router } from './routes'
 
-store.dispatch({ type: 'todos/todoAdded', payload: { id: 1, text: 'Learn Redux', completed: false } })
-console.log('current state:', store.getState())
+// store.dispatch({ type: 'todos/todoAdded', payload: { id: 1, text: 'Learn Redux', completed: false } })
+// console.log('current state:', store.getState())
 
 import './index.css'
 
