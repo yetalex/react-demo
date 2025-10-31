@@ -11,21 +11,21 @@ const BaseBox = () => {
     const canvas = canvasRef.current;
     
     // 设置 canvas 尺寸
-    const width = 800;
-    const height = 600;
-    canvas.width = width;
-    canvas.height = height;
+    // const width = 800;
+    // const height = 600;
+    // canvas.width = width;
+    // canvas.height = height;
 
     // 1. 创建渲染器
     const renderer = new THREE.WebGLRenderer({ 
       antialias: true, 
       canvas: canvas 
     });
-    renderer.setSize(width, height);
+    // renderer.setSize(width, height);
 
     // 2. 需要一个透视摄像机
     const fov = 75;  // 视野范围，这里指垂直方向为75度
-    const aspect = width / height; // 画布的宽高比
+    const aspect = 2; // 画布的宽高比
     const near = 0.1; // 近裁剪面
     const far = 5; // 远裁剪面
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
@@ -104,7 +104,9 @@ const BaseBox = () => {
     <div className="base-box">
       <canvas 
         ref={canvasRef} 
-        style={{ 
+        style={{
+          width: '100%',
+          height: '100%', 
           border: '1px solid #ccc',
           display: 'block'
         }} 
