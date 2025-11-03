@@ -77,6 +77,14 @@ export default function Sun() {
     moonOrbit.add(moonMesh);  // 把月亮变为地球的子节点
     objects.push(moonMesh);
 
+    // 为每个节点添加一个AxesHelper
+    objects.forEach((node) => {
+      const axes = new THREE.AxesHelper();
+      axes.material.depthTest = false;
+      axes.renderOrder = 1;
+      node.add(axes);
+    })
+
     // 统一按照 canvas 的大小设置渲染尺寸及相机宽高比
     const resize = () => {
       const width = canvas.clientWidth || canvas.width;
