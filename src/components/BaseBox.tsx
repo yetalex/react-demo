@@ -1,6 +1,18 @@
 import { useRef, useEffect } from 'react';
 import * as THREE from 'three'
 
+function resizeRendererToDisplaySize(renderer: THREE.WebGLRenderer) {
+  const canvas = renderer.domElement;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  const needResize = canvas.width !== width || canvas.height !== height;
+  if (needResize) {
+    renderer.setSize(width, height, false);
+  }
+  return needResize;
+}
+
+
 const BaseBox = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -66,6 +78,12 @@ const BaseBox = () => {
     function render(time: number) {
       time *= 0.001; // 转换为秒
 
+      if (resizeRendererToDisplaySize(renderer)) {
+        const canvas = renderer.domElement;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+      }
+
       cubes.forEach((cube, ndx) => {
         const speed = 1 + ndx * .1;
         const rot = time * speed;
@@ -105,7 +123,7 @@ const BaseBox = () => {
       <canvas 
         ref={canvasRef} 
         style={{
-          width: '100%',
+          width: '70%',
           height: '100%', 
           border: '1px solid #ccc',
           display: 'block'
