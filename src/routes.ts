@@ -3,6 +3,7 @@ import App from './App'
 import { BarEchartExample } from './pages/echarts/bar'
 import { threejsBase } from './pages/threejs/base';
 import { threejsSunEarth } from './pages/threejs/sunEarth';
+import { threejsLightBox } from './pages/threejs/lightBox';
 
 export const router = createBrowserRouter([
   {
@@ -21,4 +22,8 @@ export const router = createBrowserRouter([
     path: "/threejs/sun-earth",
     Component: threejsSunEarth,
   },
+  {
+    path: "/threejs/light-box",
+    Component: threejsLightBox
+  }
 ]);
