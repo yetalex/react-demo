@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { EnergyChart, SvgChart} from './3d'
-import SvgPathDemo from './3d/SvgPathDemo'
+import { EnergyChart, SvgChart} from './components/3d'
+import SvgPathDemo from './components/3d/SvgPathDemo'
 import { Link } from 'react-router'
 // import './App.css'
 
