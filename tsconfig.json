@@ -14,6 +14,11 @@
     "noEmit": true, // 不生成编译后的文件，只进行类型检查
     "jsx": "react-jsx", // JSX 编译方式，使用 React 17+ 的新 JSX 转换
 
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     /* Linting 代码检查 */
     "strict": true, // 启用所有严格类型检查选项
     "noUnusedLocals": true, // 检查未使用的局部变量
